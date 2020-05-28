@@ -5,6 +5,11 @@
  */
 package validation;
 
+import entity.Worker;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
 
 /**
@@ -12,11 +17,12 @@ import java.util.Scanner;
  * @author Administrator
  */
 public class Validate {
-     private static final String REGEX_INT = "-?\\d+";
+
+    private static final String REGEX_INT = "-?\\d+";
     private static final String REGEX_DECIMAL = "-?\\d+\\.\\d+";
     private static final String REGEX_DOUBLE = REGEX_INT + "|" + REGEX_DECIMAL;
     private static final Scanner IN = new Scanner(System.in);
-    
+
     public int getInt(String message, int min, int max) {
         Scanner scanner = new Scanner(System.in);
         boolean flag = true;
@@ -44,7 +50,7 @@ public class Validate {
         }
         return number;
     }
-    
+
     public float getFloat(String message, float min, float max) {
         Scanner scanner = new Scanner(System.in);
         boolean flag = true;
@@ -102,9 +108,9 @@ public class Validate {
         }
         return number;
     }
-    
-        //check user input string
-    public static String checkInputString() {
+
+    //check user input string
+    public String getString() {
         //loop until user input correct
         while (true) {
             String result = IN.nextLine().trim();
@@ -115,5 +121,19 @@ public class Validate {
                 return result;
             }
         }
+    }
+    
+    
+
+    public boolean isExistWorker(ArrayList<Worker> lw, String id, String name, int age, double salary, String workerLocation) {
+        for (Worker worker : lw) {
+            if (id.equalsIgnoreCase(worker.getId())
+                    && name.equalsIgnoreCase(worker.getName())
+                    && age == worker.getAge()
+                    && salary == worker.getSalary()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
