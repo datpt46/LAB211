@@ -5,8 +5,6 @@
  */
 package validation;
 
-import entity.Worker;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -18,16 +16,15 @@ public class Validate {
     private static final String REGEX_INT = "-?\\d+";
     private static final String REGEX_DECIMAL = "-?\\d+\\.\\d+";
     private static final String REGEX_DOUBLE = REGEX_INT + "|" + REGEX_DECIMAL;
-    private static final Scanner IN = new Scanner(System.in);
+    private static final Scanner SC = new Scanner(System.in);
 
     public int getInt(String message, int min, int max) {
-        Scanner scanner = new Scanner(System.in);
         boolean flag = true;
         int number = 0;
 
         while (flag) {
             System.out.println(message);
-            String strInput = scanner.nextLine().trim();
+            String strInput = SC.nextLine().trim();
 
             if (strInput.isEmpty()) {
                 System.out.println("You cannot enter an empty value!");
@@ -47,44 +44,14 @@ public class Validate {
         }
         return number;
     }
-
-    public float getFloat(String message, float min, float max) {
-        Scanner scanner = new Scanner(System.in);
-        boolean flag = true;
-        float number = 0;
-
-        while (flag) {
-            System.out.println(message);
-            String strInput = scanner.nextLine().trim();
-
-            if (strInput.isEmpty()) {
-                System.out.println("You cannot enter an empty value!");
-            } else {
-                if (strInput.matches(REGEX_DOUBLE)) {
-                    number = Float.valueOf(strInput);
-                    if (number >= min && number <= max) {
-                        flag = false;
-                    } else {
-                        System.out.println("Number out of range.");
-                    }
-
-                } else {
-                    System.out.println("Number invalid!");
-                }
-            }
-
-        }
-        return number;
-    }
-
+    
     public double getDouble(String message, double min, double max) {
-        Scanner scanner = new Scanner(System.in);
         boolean flag = true;
         double number = 0;
 
         while (flag) {
             System.out.println(message);
-            String strInput = scanner.nextLine().trim();
+            String strInput = SC.nextLine().trim();
 
             if (strInput.isEmpty()) {
                 System.out.println("You cannot enter an empty value!");
@@ -101,36 +68,47 @@ public class Validate {
                     System.out.println("Number invalid!");
                 }
             }
-
         }
         return number;
     }
 
-    //check user input string
     public String getString() {
-        //loop until user input correct
         while (true) {
-            String result = IN.nextLine().trim();
-            if (result.isEmpty()) {
-                System.err.println("Not empty");
-                System.out.print("Enter again: ");
-            } else {
+            String result = SC.nextLine().trim();
+            if (!result.isEmpty()) {
                 return result;
+            } else {
+                System.out.println("cannot empty, enter again: ");
             }
         }
     }
-    
-    
 
-    public boolean isExistWorker(ArrayList<Worker> lw, String id, String name, int age, double salary, String workerLocation) {
-        for (Worker worker : lw) {
-            if (id.equalsIgnoreCase(worker.getId())
-                    && name.equalsIgnoreCase(worker.getName())
-                    && age == worker.getAge()
-                    && salary == worker.getSalary()) {
-                return true;
+    public String getperator() {
+
+        while (true) {
+            String operator = SC.nextLine();
+            if (operator.isEmpty()) {
+                System.out.println("cannot empty");
+            } else {
+                switch (operator) {
+                    case "+":
+                        return operator;
+                    case "-":
+                        return operator;
+                    case "*":
+                        return operator;
+                    case "/":
+                        return operator;
+                    case "^":
+                        return operator;
+                    case "=":
+                        return operator;
+                    default:
+                        System.out.println("Please input (+, -, *, /, ^)");
+                }
             }
         }
-        return false;
+
     }
+
 }
