@@ -6,7 +6,10 @@
 package validation;
 
 import entity.Worker;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
 
 /**
@@ -127,10 +130,26 @@ public class Validate {
             if (id.equalsIgnoreCase(worker.getId())
                     && name.equalsIgnoreCase(worker.getName())
                     && age == worker.getAge()
-                    && salary == worker.getSalary()) {
+                    && salary == worker.getSalary()
+                    && workerLocation == worker.getWorkLocation()) {
                 return true;
             }
         }
         return false;
+    }
+    
+    public Worker getWorkerById(ArrayList<Worker> lw, String code) {
+        for(Worker worker : lw) {
+            if(code.equalsIgnoreCase(worker.getId())) {
+                return worker;
+            }
+        }
+        return null;
+    }
+    
+    public String getCurrentDate() {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
+        return df.format(cal.getTime());     
     }
 }

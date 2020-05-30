@@ -24,7 +24,6 @@ public class main {
 
     public static void main(String[] args) {
 
-//        int choose = CHECK.getInt("please enter 1-5: ", 1, 5);
         while (true) {
             MANAGE.menu();
             int choose = CHECK.getInt("please enter 1-5: ", 1, 5);
@@ -39,7 +38,7 @@ public class main {
                     MANAGE.changeSalary(LW, LSH, 2);
                     break;
                 case 4:
-                    MANAGE.printHistoryChange(LSH);
+                    MANAGE.getInformationSalary(LSH);
                     break;
                 case 5:
                     return;
