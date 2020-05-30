@@ -16,9 +16,10 @@ import validation.Validate;
  */
 public class Login implements LoginInterface {
 
-    private static final String ALPHA = "abcdefghiklmnopqrstuvwxyz".toUpperCase();
+    private static final String ALPHA = "abcdefghiklmnopqrstuvwxyz";
+    private static final String ALPHA_UPPERCASE = ALPHA.toUpperCase();
     private static final String DIGITS = "0123456789";
-    private static final String ALPHA_NUMERIC = ALPHA + DIGITS;
+    private static final String ALPHA_NUMERIC = ALPHA + ALPHA_UPPERCASE + DIGITS;
 
     //generate random number, list to store captcha, check function include String, integer,..
     private static final Random RD = new Random();
@@ -56,7 +57,7 @@ public class Login implements LoginInterface {
     @Override
     public String checkPassword(String password) {
 
-        if (password.matches("[a-zA-Z0-9]{8,31}")) {
+        if (password.matches("(?=.*\\d)(?=.*[A-Z])(?=.*[a-z]).{8,31}")) {
             return password;
         } else {
             return "password must in range 8-31"
