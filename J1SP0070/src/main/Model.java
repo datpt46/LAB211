@@ -5,9 +5,7 @@
  */
 package main;
 
-import bo.Login;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
 import validation.Validate;
 
 /**
@@ -16,59 +14,44 @@ import validation.Validate;
  */
 public class Model {
     
-    private static final List<String> LIST_CAPTCHA = new ArrayList();
-    
     private static final validation.Validate CHECK = new Validate();
-    private static final Login LOGIN_FUNCTION = new Login();
-    
-    public void chooseLanguage() {
-        while(true) {
-            LOGIN_FUNCTION.menuLanguage();
-            int choose = CHECK.getInt("enter 1-3: ", 1, 3);
-            
-            switch(choose) {
-                case 1:
-                    break;
-                case 2:
-                    runTPBank();
-                    break;
-                case 3:
-                    return;
-            }
+
+    public void display() {
+        Locale localeVi = new Locale("vi");
+        Locale localeEn = new Locale("en");
+        System.out.println("1. Vietnamese");
+        System.out.println("2. English");
+        System.out.println("3. Exit");
+        System.out.println("Please choice 1 option: ");
+        int choice = CHECK.getInt(1, 3, localeEn);
+
+        switch (choice) {
+            case 1:
+                runTPBank(localeVi);
+                break;
+            case 2:
+                runTPBank(localeEn);
+                break;
+            case 3:
+                return;
         }
+
     }
-    
-    public void runTPBank() {
-        while(true) {
-            LOGIN_FUNCTION.menuTPBank();
-            int choose = CHECK.getInt("enter 1-5: ", 1, 5);
-            
-            switch(choose) {
-                case 1:
-                    String accountNumber = CHECK.getString();
-                    String messageAccount = LOGIN_FUNCTION.checkAccountNumber(accountNumber);
-                    System.out.println(messageAccount);
-                    break;
-                case 2:
-                    String passWord = CHECK.getString();
-                    String messagePassWord = LOGIN_FUNCTION.checkPassword(passWord);
-                    System.out.println(messagePassWord);
-                    break;
-                case 3:
-                    LIST_CAPTCHA.clear();
-                    String captchaValue = LOGIN_FUNCTION.generateCaptcha();
-                    LIST_CAPTCHA.add(captchaValue);
-                    System.out.println("captcha: " + captchaValue);
-                    break;
-                case 4:
-                    String inputCaptcha = CHECK.getString();
-                    boolean result = LOGIN_FUNCTION.isCorrectCaptcha(LIST_CAPTCHA, inputCaptcha);
-                    System.out.println((result) ? "correct" : "incorrect");                    
-                    break;
-                case 5:
-                    return;
+
+    public void runTPBank(Locale locale) {
+        long accountNumber = CHECK.getAccountNumber(locale);
+        String passWord = CHECK.getPassword(locale);
+        String captchaGenerated = CHECK.generateCaptcha();
+        while (true) {
+            if (CHECK.isCaptcha(captchaGenerated, locale)) {
+                CHECK.getWordLanguage(locale, "loginSuccess");
+                return;
+            } else {
+                captchaGenerated = CHECK.generateCaptcha();
+                CHECK.getWordLanguage(locale, "errorCaptcha");
             }
         }
+
     }
     
 }
