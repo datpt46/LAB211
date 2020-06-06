@@ -5,6 +5,8 @@
  */
 package main;
 
+import model.Model;
+
 /**
  *
  * @author Administrator
@@ -12,10 +14,9 @@ package main;
 public class Main {
 
 //    private static final GenerateCaptcha GECA = new GenerateCaptcha();
-
     public static void main(String[] args) {
 
-        new Model().display();
-        
+        new Model().menu();
+
     }
 }

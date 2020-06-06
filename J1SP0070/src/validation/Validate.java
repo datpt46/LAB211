@@ -5,9 +5,7 @@
  */
 package validation;
 
-import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -17,125 +15,107 @@ import java.util.Scanner;
  */
 public class Validate {
 
-  //    private static final String REGEX_INT = "-?\\d+";
-//    private static final String REGEX_DECIMAL = "-?\\d+\\.\\d+";
-//    private static final String REGEX_DOUBLE = REGEX_INT + "|" + REGEX_DECIMAL;
-    private static final Scanner SC = new Scanner(System.in);
-
-    private static final Random RD = new Random();
-    private static final String ALPHA = "abcdefghiklmnopqrstuvwxyz";
-    private static final String ALPHA_UPPERCASE = ALPHA.toUpperCase();
-    private static final String DIGITS = "0123456789";
-    private static final String ALPHA_NUMERIC = ALPHA + ALPHA_UPPERCASE + DIGITS;
+    static final Scanner IN = new Scanner(System.in);
+    static final generate.Generate GC = new generate.Generate();
+    static final String ACCOUNT_REGEX = "^\\d{10}$";
+    static final String PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{8,31}$";
 
     public void getWordLanguage(Locale locale, String key) {
         ResourceBundle labels = ResourceBundle.getBundle("messages", locale);
         System.out.println(labels.getString(key));
     }
 
-    public int getInt(int min, int max, Locale locale) {
-        boolean flag = true;
+    public String getString(Locale locale) {
+
+        while (true) {
+            String result = IN.nextLine().trim();
+            if (result.isEmpty()) {
+                getWordLanguage(locale, "checkEmptyString");
+            } else {
+                return result;
+            }
+
+        }
+
+    }
+
+    public int getInt(Locale locale, int min, int max) {
         int number = 0;
+        boolean flag = true;
 
         while (flag) {
+
             try {
-                number = Integer.parseInt(SC.nextLine());
+                number = Integer.parseInt(getString(locale));
                 if (number >= min && number <= max) {
-                    return number;
+                    flag = false;
                 } else {
                     getWordLanguage(locale, "checkNumberRange");
                 }
+
             } catch (NumberFormatException e) {
                 getWordLanguage(locale, "checkEnterInputAgain");
             }
         }
+
         return number;
     }
 
-    public String getString(Locale locale) {
-        while (true) {
-            String result = SC.nextLine().trim();
-            if (!result.isEmpty()) {
-                return result;
-            } else {
-                getWordLanguage(locale, "checkEmptyString");
-            }
-        }
-    }
-
-
-    public long getAccountNumber(Locale locale) {
+    public String getAccount(Locale locale) {
+        String account = "";
         boolean flag = true;
-        long number = 0;
 
         while (flag) {
-            getWordLanguage(locale, "enterAccount");
-            String accountStr = SC.nextLine();
-
-//            if (accountStr.isEmpty()) {
-//                getWordLanguage(locale, "checkEmptyString");
-//            } else
-            {
-                if (accountStr.matches("\\d{10}")) {
-                    number = Integer.valueOf(accountStr);
-                    flag = false;
-                } else {
-                    getWordLanguage(locale, "errorCheckInput");
-                    getWordLanguage(locale, "checkEnterInputAgain");
-                }
+            account = getString(locale);
+            if (account.matches(ACCOUNT_REGEX)) {
+                flag = false;
+            } else {
+                getWordLanguage(locale, "errorAccount");
             }
-
         }
-        return number;
+        return account;
     }
 
     public String getPassword(Locale locale) {
-
         String password = "";
         boolean flag = true;
 
         while (flag) {
-            getWordLanguage(locale, "enterPassword");
-            password = SC.nextLine();
-
-//            if (password.isEmpty()) {
-//                getWordLanguage(locale, "checkEmptyString");
-//            } else 
-            {
-                if (password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,31}$")) {
-                    flag = false;
-                } else {
-                    getWordLanguage(locale, "errorCheckPassWord");
-                }
+            password = getString(locale);
+            if (password.matches(PASSWORD_REGEX)) {
+                flag = false;
+            } else {
+                getWordLanguage(locale, "errorPassword");
             }
-
         }
-
         return password;
     }
 
-    public String generateCaptcha() {
-        StringBuilder sb = new StringBuilder();
-//        int numberOfCharacters = CHECK.getInt("please enter random number of character: ", 0, Integer.MAX_VALUE);
-        for (int i = 0; i < 5; i++) {
-            int number = randomNumber(0, ALPHA_NUMERIC.length() - 1);
-            char ch = ALPHA_NUMERIC.charAt(number);
-            sb.append(ch);
+    public boolean isCaptcha(String captchaGenerated, String captchaInput) {
+        return captchaGenerated.equals(captchaInput);
+    }
+
+    public String getCaptcha(Locale locale) {
+        boolean flag = true;
+        String captchaInput = "";
+        String captchaGenerated = "";
+
+        while (flag) {
+            captchaGenerated = GC.generateCaptcha();
+            System.out.println(captchaGenerated);
+
+            getWordLanguage(locale, "enterCaptcha");
+            captchaInput = getString(locale);
+
+            if (isCaptcha(captchaGenerated, captchaInput)) {
+                getWordLanguage(locale, "loginSuccess");
+                flag = false;
+            } else {
+                getWordLanguage(locale, "errorCaptcha");
+            }
         }
 
-        return sb.toString();
-    }
-
-    public static int randomNumber(int min, int max) {
-        return RD.nextInt(max - min + 1) + min;
-    }
-
-    public boolean isCaptcha(String captchaGenerated, Locale locale) {
-        System.out.println(captchaGenerated);
-        getWordLanguage(locale, "enterCaptcha");
-        String captchaInput = getString(locale);
-
-        return captchaGenerated.equals(captchaInput);
+        return captchaInput;
     }
 
 }
