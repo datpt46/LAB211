@@ -24,12 +24,11 @@ public class Generate {
     }
 
     public String generateCaptcha() {
-        StringBuilder sb = new StringBuilder();
-
+        String res = "";
         for (int i = 0; i < 5; i++) {
-            sb.append(ALPHA_NUMERIC.charAt(randomRange(0, ALPHA_NUMERIC.length() - 1)));
+            res += ALPHA_NUMERIC.charAt(randomRange(0, ALPHA_NUMERIC.length() - 1));
         }
 
-        return sb.toString();
+        return res;
     }
 }
