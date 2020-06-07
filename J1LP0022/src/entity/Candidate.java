@@ -94,9 +94,11 @@ public class Candidate {
         this.type = type;
     }
 
-    public String displayCandidateInfo() {
-        return id + " | " + firstName + " | " + lastName + " | " + birthDate +
-                " | " + address + " | " + phone + " | " + email + " | " + type;
+    @Override
+    public String toString() {
+        return id + "-" + firstName + "-" + lastName + "-" + 
+                birthDate + "-" + address + "-" + phone + "-" + 
+                email + "-" + type;
     }
 
     
