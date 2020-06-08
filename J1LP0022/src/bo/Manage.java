@@ -87,7 +87,7 @@ public class Manage implements ManageInterface {
         System.out.println("enter graduation date: ");
         String graDate = CHECK.getString();
         System.out.println("enter graduation rank: ");
-        String graRank = CHECK.getString();
+        String graRank = CHECK.getRankOfGraduation();
         System.out.println("enter university: ");
         String education = CHECK.getString();
 

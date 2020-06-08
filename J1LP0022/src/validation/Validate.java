@@ -130,18 +130,16 @@ public class Validate {
     }
 
     public String getRankOfGraduation() {
-        while (true) {
-            String rank = getString();
-
-            switch (rank) {
-                case "Excellence":
-                case "Good":
-                case "Fair":
-                case "Poor":
-                    return rank;
-                default:
-                    System.out.println("excellence, good, fair or poor only!");
-
+         while (true) {
+            String rank = getString().toLowerCase();
+            if (rank.equals("excellence")
+                    || rank.equals("good")
+                    || rank.equals("fair")
+                    || rank.equals("poor")) {
+                return rank;
+            } else {
+                System.err.println("Please input string: Excellence, Good, Fair, Poor");
+                System.out.print("Enter again: ");
             }
         }
     }
