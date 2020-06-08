@@ -130,8 +130,8 @@ public class Validate {
     }
 
     public String getRankOfGraduation() {
-         while (true) {
-             String rank = getString().toLowerCase();
+        while (true) {
+            String rank = getString().toLowerCase();
 
             switch (rank) {
                 case "excellence":
@@ -141,8 +141,8 @@ public class Validate {
                     return rank;
                 default:
                     System.out.println("excellence, good, fair or poor only!");
+            }
         }
-    }
 
-}
+    }
 }
