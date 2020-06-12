@@ -103,25 +103,45 @@ public class getInput {
                     System.out.println("enter again: ");
                 }
             } catch (NumberFormatException e) {
-               e.printStackTrace();
+                e.printStackTrace();
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         }
 
     }
-       
-    
+
     public double getPlaneTime(String message) {
-        boolean planRange = Double.parseDouble(REGEX_PLAN) >=8 && Double.parseDouble(REGEX_PLAN)<=17.5;
-        while(true){
+        boolean planRange = Double.parseDouble(REGEX_PLAN) >= 8 && Double.parseDouble(REGEX_PLAN) <= 17.5;
+        while (true) {
             System.out.println(message);
             String plan = getString();
-            
-            if(plan.matches(REGEX_PLAN) && planRange){
+
+            if (plan.matches(REGEX_PLAN) && planRange) {
                 return Double.parseDouble(plan);
             } else {
                 System.out.println("please input again: ");
+            }
+        }
+    }
+
+    public double getPlanFromPlanTo(String message, int mode) {
+
+        while (true) {
+            double planFrom = getPlaneTime("enter plan from: ");
+            double planTo = getPlaneTime("enter plan to: ");
+
+            while (planFrom >= planTo) {
+                System.out.println("planFrom cannot be higher or equal plan to!");
+                planFrom = getPlaneTime("enter plan from: ");
+                planTo = getPlaneTime("enter plan to: ");
+            }
+
+            switch (mode) {
+                case 1:
+                    return planFrom;
+                case 2:
+                    return planTo;
             }
         }
     }
