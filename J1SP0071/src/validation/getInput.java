@@ -71,9 +71,8 @@ public class getInput {
         return number;
     }
 
-    public String getTaskNameById(String message) {
+    public String getTaskNameById() {
         while (true) {
-            System.out.println(message);
             int taskTdType = getInt("enter task type 1-4: ", 1, 4);
             switch (taskTdType) {
                 case 1:
@@ -100,46 +99,53 @@ public class getInput {
                 if (dateInput.equalsIgnoreCase(format.format(date))) {
                     return dateInput;
                 } else {
-                    System.out.println("enter again: ");
+                    System.out.println("date not exist!");
                 }
-            }  catch (ParseException e) {
+            } catch (ParseException e) {
                 System.out.println("cannot parse. Wrong format!");
             }
         }
 
     }
 
-    public double getPlaneTime(String message) {
-//        boolean planRange = Double.parseDouble(REGEX_PLAN) >= 8 && Double.parseDouble(REGEX_PLAN) <= 17.5;
+    public boolean planRange(String plan) {
+        try {
+            boolean planRange = Double.parseDouble(plan) >= 8 && Double.parseDouble(plan) <= 17.5;
+            if (planRange) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("double wrong format");
+        }
+        return false;
+    }
+
+    public double getPlanTime(String message) {
         while (true) {
             System.out.println(message);
             String plan = getString();
-            boolean planRange = Double.parseDouble(plan) >= 8 && Double.parseDouble(plan) <= 17.5;
-            if (plan.matches(REGEX_PLAN) && planRange) {
+            if (plan.matches(REGEX_PLAN) && planRange(plan)) {
                 return Double.parseDouble(plan);
             } else {
                 System.out.println("please input again: ");
             }
+
         }
     }
 
-    public double getPlanFromPlanTo(String message, int mode) {
+    public double getPlanFromPlanTo(int mode) {
 
         while (true) {
-            double planFrom = getPlaneTime("enter plan from: ");
-            double planTo = getPlaneTime("enter plan to: ");
+            double planFrom = getPlanTime("enter plan from: ");
+            double planTo = getPlanTime("enter plan to: ");
 
-            while (planFrom >= planTo) {
-                System.out.println("planFrom cannot be higher or equal plan to!");
-                planFrom = getPlaneTime("enter plan from: ");
-                planTo = getPlaneTime("enter plan to: ");
-            }
-
-            switch (mode) {
-                case 1:
-                    return planFrom;
-                case 2:
-                    return planTo;
+            if (planFrom < planTo) {
+                switch (mode) {
+                    case 1:
+                        return planFrom;
+                    case 2:
+                        return planTo;
+                }
             }
         }
     }

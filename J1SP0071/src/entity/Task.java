@@ -10,7 +10,7 @@ package entity;
  * @author Administrator
  */
 public class Task {
-    private String id;
+    private int id;
     private String taskTypeId;
     private String requirementName;
     private String date;
@@ -19,7 +19,7 @@ public class Task {
     private String assignee;
     private String reviewer;
 
-    public Task(String id, String taskTypeId, String requirementName, String date, double planFrom, double planTo, String assignee, String reviewer) {
+    public Task(int id, String taskTypeId, String requirementName, String date, double planFrom, double planTo, String assignee, String reviewer) {
         this.id = id;
         this.taskTypeId = taskTypeId;
         this.requirementName = requirementName;
@@ -30,11 +30,11 @@ public class Task {
         this.reviewer = reviewer;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -93,6 +93,5 @@ public class Task {
     public void setReviewer(String reviewer) {
         this.reviewer = reviewer;
     }
-    
     
 }
