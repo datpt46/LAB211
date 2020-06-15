@@ -110,11 +110,11 @@ public class getInput {
     }
 
     public double getPlaneTime(String message) {
-        boolean planRange = Double.parseDouble(REGEX_PLAN) >= 8 && Double.parseDouble(REGEX_PLAN) <= 17.5;
+//        boolean planRange = Double.parseDouble(REGEX_PLAN) >= 8 && Double.parseDouble(REGEX_PLAN) <= 17.5;
         while (true) {
             System.out.println(message);
             String plan = getString();
-
+            boolean planRange = Double.parseDouble(plan) >= 8 && Double.parseDouble(plan) <= 17.5;
             if (plan.matches(REGEX_PLAN) && planRange) {
                 return Double.parseDouble(plan);
             } else {
