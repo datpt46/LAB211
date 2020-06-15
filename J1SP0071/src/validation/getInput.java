@@ -94,7 +94,7 @@ public class getInput {
                 System.out.println(message);
                 String dateInput = getString();
 
-                SimpleDateFormat format = new SimpleDateFormat("dd-MM-yy");
+                SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                 Date date = format.parse(dateInput);
 
                 if (dateInput.equalsIgnoreCase(format.format(date))) {
@@ -102,10 +102,8 @@ public class getInput {
                 } else {
                     System.out.println("enter again: ");
                 }
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            } catch (ParseException e) {
-                e.printStackTrace();
+            }  catch (ParseException e) {
+                System.out.println("cannot parse. Wrong format!");
             }
         }
 
