@@ -86,7 +86,7 @@ public class Validate {
             String phoneNumber = getString();
 
             if (!VB.isCandidatePhone(candidates, phoneNumber)) {
-                if (phoneNumber.matches("^\\d{10}$")) {
+                if (phoneNumber.matches("^\\d{10, 11}$")) {
                     return phoneNumber;
                 } else {
                     System.out.println("phone number minimum 10 numbers");
@@ -103,7 +103,7 @@ public class Validate {
         while (true) {
             String email = getString();
             if (!VB.isCandidateEmail(candidates, email)) {
-                if (email.matches("^[A-Za-z]+[\\w]*@[\\w]+(\\.[A-Za-z]+){1,3}$")) {
+                if (email.matches("^[a-zA-Z]+[a-zA-Z0-9]*@[a-zA-Z]+(\\.[A-Za-z0-9]+){1,3}$")) {
                     return email;
                 } else {
                     System.out.println("format <account name>@<domain>.");
