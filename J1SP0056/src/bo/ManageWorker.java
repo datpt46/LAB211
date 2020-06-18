@@ -22,12 +22,11 @@ public class ManageWorker implements ManageWorkerInterface {
     //function 0
     public void menu() {
         System.out.println("======Worker Management======");
-        System.out.println("======");
         System.out.println("1. Add worker");
         System.out.println("2. Up Salary");
         System.out.println("3. Down Salary");
         System.out.println("4. Display Information Salary");
-        System.out.println("5.Exit");
+        System.out.println("5. Exit");
     }
 
     //function 1
@@ -37,11 +36,11 @@ public class ManageWorker implements ManageWorkerInterface {
         System.out.println("enter name: ");
         String name = CHECK.getString();
         int age = CHECK.getInt("enter age: ", 18, 50);
-        double salary = CHECK.getDouble("enter salary: ", 0, Integer.MAX_VALUE);
+        double salary = CHECK.getDouble("enter salary: ", 0, Double.MAX_VALUE);
         System.out.println("enter worker location");
         String workerLocation = CHECK.getString();
 
-        if (CHECK.isExistWorker(lw, id, name, age, salary, workerLocation)) {
+        if (CHECK.isExistId(lw, id)) {
             System.out.println("Worker exist!");
         } else {
             lw.add(new Worker(id, name, age, salary, workerLocation));

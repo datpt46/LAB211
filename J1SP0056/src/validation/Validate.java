@@ -122,34 +122,28 @@ public class Validate {
             }
         }
     }
-    
-    
 
-    public boolean isExistWorker(ArrayList<Worker> lw, String id, String name, int age, double salary, String workerLocation) {
+    public boolean isExistId(ArrayList<Worker> lw, String id) {
         for (Worker worker : lw) {
-            if (id.equalsIgnoreCase(worker.getId())
-                    && name.equalsIgnoreCase(worker.getName())
-                    && age == worker.getAge()
-                    && salary == worker.getSalary()
-                    && workerLocation == worker.getWorkLocation()) {
+            if (id.equalsIgnoreCase(worker.getId())) {
                 return true;
             }
         }
         return false;
     }
-    
+
     public Worker getWorkerById(ArrayList<Worker> lw, String code) {
-        for(Worker worker : lw) {
-            if(code.equalsIgnoreCase(worker.getId())) {
+        for (Worker worker : lw) {
+            if (code.equalsIgnoreCase(worker.getId())) {
                 return worker;
             }
         }
         return null;
     }
-    
+
     public String getCurrentDate() {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         Calendar cal = Calendar.getInstance();
-        return df.format(cal.getTime());     
+        return df.format(cal.getTime());
     }
 }
