@@ -33,11 +33,6 @@ public class Experience extends Candidate {
 
     public void setProSkill(String proSkill) {
         this.proSkill = proSkill;
-    }
-
-    
-
-    
-    
+    } 
     
 }

@@ -18,5 +18,10 @@ public interface ManageInterface {
     public void createFresher(ArrayList<Candidate> candidates, Candidate cd);
     public void createIntern(ArrayList<Candidate> candidates, Candidate cd);
     public void search(ArrayList<Candidate> cd);
-    public void displayListCandidate(ArrayList<Candidate> cd);
+    //public void displayListCandidate(ArrayList<Candidate> cd);
+    public int chooseCountToDisplay(ArrayList<Candidate> candidates);
+    public void chooseWhatToDisplay(ArrayList<Candidate> candidates);
+    public void displayListExperience(ArrayList<Candidate> candidates);
+    public void displayListFresher(ArrayList<Candidate> candidates);
+    public void displayListIntern(ArrayList<Candidate> candidates);
 }

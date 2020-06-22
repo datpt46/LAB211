@@ -86,7 +86,7 @@ public class Validate {
             String phoneNumber = getString();
 
             if (!VB.isCandidatePhone(candidates, phoneNumber)) {
-                if (phoneNumber.matches("^\\d{10, 11}$")) {
+                if (phoneNumber.matches("^\\d{10,11}$")) {
                     return phoneNumber;
                 } else {
                     System.out.println("phone number minimum 10 numbers");

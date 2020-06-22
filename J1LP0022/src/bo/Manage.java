@@ -115,8 +115,8 @@ public class Manage implements ManageInterface {
 
     @Override
     public void search(ArrayList<Candidate> candidates) {
-        displayListCandidate(candidates);
-
+//        displayListCandidate(candidates);
+        chooseWhatToDisplay(candidates);
         System.out.println("enter first name or last name of candidate: ");
         String nameSearch = CHECK.getString();
         int cdType = CHECK.getInt("enter candidate type: ", 0, 2);
@@ -135,7 +135,7 @@ public class Manage implements ManageInterface {
     }
 
     @Override
-    public void displayListCandidate(ArrayList<Candidate> candidates) {
+    public void displayListExperience(ArrayList<Candidate> candidates) {
         System.out.println("=========Experience========");
 
         for (Candidate cd : candidates) {
@@ -143,7 +143,10 @@ public class Manage implements ManageInterface {
                 System.out.println(cd.getFirstName() + " " + cd.getLastName());
             }
         }
+    }
 
+    @Override
+    public void displayListFresher(ArrayList<Candidate> candidates) {
         System.out.println("\n==========Fresher=========");
 
         for (Candidate cd : candidates) {
@@ -151,7 +154,10 @@ public class Manage implements ManageInterface {
                 System.out.println(cd.getFirstName() + " " + cd.getLastName());
             }
         }
+    }
 
+    @Override
+    public void displayListIntern(ArrayList<Candidate> candidates) {
         System.out.println("\n==========Intern==========");
 
         for (Candidate cd : candidates) {
@@ -159,5 +165,63 @@ public class Manage implements ManageInterface {
                 System.out.println(cd.getFirstName() + " " + cd.getLastName());
             }
         }
+    }
+    
+    @Override
+    public int chooseCountToDisplay(ArrayList<Candidate> candidates) {
+        int count = 0;
+
+        for (Candidate cd : candidates) {
+            if (cd instanceof Experience) {
+                count += 1;
+            }
+            if (cd instanceof Fresher) {
+                count += 10;
+            }
+
+            if (cd instanceof Intern) {
+                count += 20;
+            }
+        }
+        return count;
+    }
+
+    @Override
+    public void chooseWhatToDisplay(ArrayList<Candidate> candidates) {
+
+        int choose = chooseCountToDisplay(candidates);
+
+        switch (choose) {
+            case 0:
+                System.out.println("Nothing to display!");
+                break;
+            case 1:
+                displayListExperience(candidates);
+                break;
+            case 10:
+                displayListFresher(candidates);
+                break;
+            case 11:
+                displayListExperience(candidates);
+                displayListFresher(candidates);
+                break;
+            case 20:
+                displayListIntern(candidates);
+                break;
+            case 21:
+                displayListExperience(candidates);
+                displayListIntern(candidates);
+                break;
+            case 30:
+                displayListFresher(candidates);
+                displayListIntern(candidates);
+                break;
+            case 31:
+                displayListExperience(candidates);
+                displayListFresher(candidates);
+                displayListIntern(candidates);
+                break;
+        }
+
     }
 }
