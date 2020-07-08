@@ -5,7 +5,7 @@
  */
 package model;
 
-import generate.Generate;
+import process.TPBankProcess;
 import java.util.Locale;
 
 /**
@@ -15,7 +15,7 @@ import java.util.Locale;
 public class Model {
 
     static final validation.Validate CHECK = new validation.Validate();
-    static final generate.Generate GC = new Generate();
+    static final process.TPBankProcess GC = new TPBankProcess();
 
     public void menu() {
 
@@ -43,10 +43,8 @@ public class Model {
     }
 
     public void runTPBank(Locale locale) {
-        CHECK.getWordLanguage(locale, "enterAccount");
-        String account = CHECK.getAccount(locale);
-        CHECK.getWordLanguage(locale, "enterPassword");
-        String password = CHECK.getPassword(locale);
-        String captcha = CHECK.getCaptcha(locale);
+        CHECK.getAccount(locale);
+        CHECK.getPassword(locale);
+        CHECK.getCaptcha(locale);
     }
 }
