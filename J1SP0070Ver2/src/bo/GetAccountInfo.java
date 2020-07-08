@@ -1,5 +1,5 @@
 
-package Bo;
+package bo;
 
 import entity.Language;
 import ulities.GenerateCaptcha;

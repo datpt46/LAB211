@@ -5,7 +5,7 @@
  */
 package main;
 
-import Bo.GetAccountInfo;
+import bo.GetAccountInfo;
 import java.util.Locale;
 
 
