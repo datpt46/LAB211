@@ -5,25 +5,25 @@
  */
 package main;
 
-import entity.Language;
+import Bo.GetAccountInfo;
 import java.util.Locale;
-import java.util.Scanner;
 
-/**
- *
- * @author Administrator
- */
+
 public class Model {
     
-    
+    /** 
+     * Choose english or vietnamese language
+     */
     public void runTPBank() {
+        validation.Validate validate = new validation.Validate();
+        
         boolean isRunning = true;
         while (isRunning) {
-            Scanner sc = new Scanner(System.in);
             System.out.println("1. English");
             System.out.println("2. Vietnam");
             System.out.println("3. Exit");
-            int choose = sc.nextInt();
+            System.out.println("Please choose 1-3: ");
+            int choose = validate.getInt(1, 3);
 
             switch (choose) {
                 case 1:
@@ -40,16 +40,18 @@ public class Model {
             }
         }
     }
-
+    
+    
+    /** 
+     * ask user to input account info
+     */
     public void display() {
-        Language language = new Language();
-        System.out.println(language.account);
-        System.out.println(language.accountInvalid);
-        System.out.println(language.password);
-        System.out.println(language.passInvalid);
-        System.out.println(language.captcha);
-        System.out.println(language.accountInvalid);
-        System.out.println(language.login);
-        System.out.println(language.loginFail);
+        GetAccountInfo gainfo = new GetAccountInfo();
+        gainfo.getAccount();
+        gainfo.getPassword();
+        gainfo.getCaptcha();
+        gainfo.loginSuccess();
+
     }
+    
 }

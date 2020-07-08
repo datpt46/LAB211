@@ -21,6 +21,7 @@ public class Language {
     public String captchaInvalid;
     public String login;
     public String loginFail;
+    public String emptyString;
 
     {
         ResourceBundle rs = ResourceBundle.getBundle("ulities/Language");
@@ -32,6 +33,7 @@ public class Language {
         captchaInvalid = rs.getString("errorCaptcha");
         login = rs.getString("loginSuccess");
         loginFail = rs.getString("loginFail");
-
+        emptyString = rs.getString("emptyString");
     }
+
 }
