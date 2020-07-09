@@ -5,7 +5,6 @@
  */
 package model;
 
-import process.TPBankProcess;
 import java.util.Locale;
 
 /**
@@ -14,8 +13,7 @@ import java.util.Locale;
  */
 public class Model {
 
-    static final validation.Validate CHECK = new validation.Validate();
-    static final process.TPBankProcess GC = new TPBankProcess();
+    static validation.Validate check = new validation.Validate();
 
     public void menu() {
 
@@ -27,7 +25,7 @@ public class Model {
         System.out.println("2. Vietnamese");
         System.out.println("3. Exit");
         System.out.println("please choice 1 option: ");
-        int choice = CHECK.getInt(localeEn, 1, 3);
+        int choice = check.getInt(localeEn, 1, 3);
 
         switch (choice) {
             case 1:
@@ -43,8 +41,8 @@ public class Model {
     }
 
     public void runTPBank(Locale locale) {
-        CHECK.getAccount(locale);
-        CHECK.getPassword(locale);
-        CHECK.getCaptcha(locale);
+        check.getAccount(locale);
+        check.getPassword(locale);
+        check.getCaptcha(locale);
     }
 }
