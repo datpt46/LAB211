@@ -8,13 +8,12 @@ import java.util.Scanner;
 
 public class Validate {
 
-    static final Scanner IN = new Scanner(System.in);
-    static final process.TPBankProcess tpp = new process.TPBankProcess();
+    static process.TPBankProcess tpp = new process.TPBankProcess();
 
     public String getString(Locale locale) {
-
+        Scanner in = new Scanner(System.in);
         while (true) {
-            String result = IN.nextLine().trim();
+            String result = in.nextLine().trim();
             if (result.isEmpty()) {
                 tpp.getWordLanguage(locale, "checkEmptyString");
             } else {
