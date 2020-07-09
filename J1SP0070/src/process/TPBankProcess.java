@@ -15,15 +15,14 @@ import java.util.ResourceBundle;
  */
 public class TPBankProcess {
 
-    static final Random RD = new Random();
-
     public void getWordLanguage(Locale locale, String key) {
         ResourceBundle labels = ResourceBundle.getBundle("messages", locale);
         System.out.println(labels.getString(key));
     }
 
     public int randomRange(int min, int max) {
-        return RD.nextInt(max - min + 1) + min;
+        Random rd = new Random();
+        return rd.nextInt(max - min + 1) + min;
     }
 
     public String generateCaptcha() {
