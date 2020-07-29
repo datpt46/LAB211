@@ -30,6 +30,7 @@ public class ManageWorker implements ManageWorkerInterface {
     }
 
     //function 1
+    @Override
     public void addWorker(ArrayList<Worker> lw) {
         System.out.println("enter id: ");
         String id = CHECK.getWorker(lw);
@@ -39,16 +40,10 @@ public class ManageWorker implements ManageWorkerInterface {
         double salary = CHECK.getDouble("enter salary: ", 0, Double.MAX_VALUE);
         System.out.println("enter worker location");
         String workerLocation = CHECK.getString();
-
-        if (CHECK.isExistId(lw, id)) {
-            System.out.println("Worker exist!");
-        } else {
-            lw.add(new Worker(id, name, age, salary, workerLocation));
-            System.out.println("Added!");
-        }
     }
 
     //function 2,3
+    @Override
     public void changeSalary(ArrayList<Worker> lw, ArrayList<SalaryHistory> lh, int mode) {
         if (lw.isEmpty()) {
             System.out.println("empty!");
