@@ -32,7 +32,7 @@ public class ManageWorker implements ManageWorkerInterface {
     //function 1
     public void addWorker(ArrayList<Worker> lw) {
         System.out.println("enter id: ");
-        String id = CHECK.getString();
+        String id = CHECK.getWorker(lw);
         System.out.println("enter name: ");
         String name = CHECK.getString();
         int age = CHECK.getInt("enter age: ", 18, 50);

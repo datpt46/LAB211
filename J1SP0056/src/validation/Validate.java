@@ -123,6 +123,20 @@ public class Validate {
         }
     }
 
+    public String getWorker(ArrayList<Worker> lw) {
+        boolean flag = true;
+        String id = getString();
+        while (flag) {
+            if (!isExistId(lw, id)) {
+                flag = false;
+            } else {
+                System.out.println("id existed!. Re-enter: ");
+                id = getString();
+            }
+        }
+        return id;
+    }
+
     public boolean isExistId(ArrayList<Worker> lw, String id) {
         for (Worker worker : lw) {
             if (id.equalsIgnoreCase(worker.getId())) {
