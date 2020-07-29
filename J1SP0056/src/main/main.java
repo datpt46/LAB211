@@ -29,7 +29,7 @@ public class main {
             int choose = CHECK.getInt("please enter 1-5: ", 1, 5);
             switch (choose) {
                 case 1:
-                    MANAGE.addWorker(LW);
+                    MANAGE.addWorker(LW, LSH);
                     break;
                 case 2:
                     MANAGE.changeSalary(LW, LSH, 1);

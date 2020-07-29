@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Administrator
  */
 public interface ManageWorkerInterface {
-    public void addWorker(ArrayList<Worker> lw);
+    public void addWorker(ArrayList<Worker> lw, ArrayList<SalaryHistory> lh);
     public void changeSalary(ArrayList<Worker> lw, ArrayList<SalaryHistory> lh, int mode);
     public void getInformationSalary(ArrayList<SalaryHistory> lh);
 }
