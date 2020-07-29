@@ -42,8 +42,7 @@ public class ManageWorker implements ManageWorkerInterface {
         String workerLocation = CHECK.getString();
         lw.add(new Worker(id, name, age, salary, workerLocation));
         lh.add(new SalaryHistory("ORIGIN", CHECK.getCurrentDate(), id, name, age, salary, workerLocation));
-        
-        
+
     }
 
     //function 2,3
@@ -51,7 +50,7 @@ public class ManageWorker implements ManageWorkerInterface {
     public void changeSalary(ArrayList<Worker> lw, ArrayList<SalaryHistory> lh, int mode) {
         //print list worker
         getInformationSalary(lh);
-        
+
         //find worker to change salary
         System.out.println("enter id(code): ");
         String code = CHECK.getString();
@@ -72,10 +71,16 @@ public class ManageWorker implements ManageWorkerInterface {
                 case 2:
                     int salaryDecrease = CHECK.getInt("enter ammount to decrease", 0, Integer.MAX_VALUE);
                     salaryUpdate = currentSalary - salaryDecrease;
-                    lh.add(new SalaryHistory("DOWN", CHECK.getCurrentDate(),
-                            worker.getId(), worker.getName(), worker.getAge(), salaryUpdate, worker.getWorkLocation()));
-                    System.out.println("Updated!");
-                    getInformationSalary(lh);
+                    
+                    if (salaryUpdate >= 0) {
+                        lh.add(new SalaryHistory("DOWN", CHECK.getCurrentDate(),
+                                worker.getId(), worker.getName(), worker.getAge(), salaryUpdate, worker.getWorkLocation()));
+                        System.out.println("Updated!");
+                        getInformationSalary(lh);
+                    } else {
+                        System.out.println("cannot add ammount higher than original salary");
+                    }
+
                     break;
             }
         } else {
@@ -92,13 +97,13 @@ public class ManageWorker implements ManageWorkerInterface {
             return;
         }
 
-        System.out.printf("%5s %15s %15s %15s %15s %15s\n", "Code", "Name",
+        System.out.printf("%-5s %-15s %-15s %-15s %-15s %-15s\n", "Code", "Name",
                 "Age", "Salary", "Status", "Date");
 
         Collections.sort(lh);
 
         for (SalaryHistory sh : lh) {
-            System.out.printf("%5s %15s %15s %15s %15s %15s\n", sh.getId(), sh.getName(),
+            System.out.printf("%-5s %-15s %-15s %-15s %-15s %-15s\n", sh.getId(), sh.getName(),
                     sh.getAge(), sh.getSalary(), sh.getStatus(), sh.getDate());
         }
     }
