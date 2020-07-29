@@ -69,17 +69,11 @@ public class ManageWorker implements ManageWorkerInterface {
                     getInformationSalary(lh);
                     break;
                 case 2:
-                    int salaryDecrease = CHECK.getInt("enter ammount to decrease", 0, Integer.MAX_VALUE);
-                    salaryUpdate = currentSalary - salaryDecrease;
-                    
-                    if (salaryUpdate >= 0) {
-                        lh.add(new SalaryHistory("DOWN", CHECK.getCurrentDate(),
-                                worker.getId(), worker.getName(), worker.getAge(), salaryUpdate, worker.getWorkLocation()));
-                        System.out.println("Updated!");
-                        getInformationSalary(lh);
-                    } else {
-                        System.out.println("cannot add ammount higher than original salary");
-                    }
+                    salaryUpdate = getSalaryUpdate(currentSalary);
+                    lh.add(new SalaryHistory("DOWN", CHECK.getCurrentDate(),
+                            worker.getId(), worker.getName(), worker.getAge(), salaryUpdate, worker.getWorkLocation()));
+                    System.out.println("Updated!");
+                    getInformationSalary(lh);
 
                     break;
             }
@@ -87,6 +81,20 @@ public class ManageWorker implements ManageWorkerInterface {
             System.out.println("worker not exist!");
         }
 
+    }
+
+    private double getSalaryUpdate(double currentSalary) {
+        int salaryDecrease = 0;
+        boolean flag = true;
+
+        while (flag) {
+            salaryDecrease = CHECK.getInt("enter ammount to decrease: ", 0, Integer.MAX_VALUE);
+            if (salaryDecrease <= currentSalary) {
+                flag = false;
+            } 
+        }
+
+        return currentSalary - salaryDecrease;
     }
 
     //function 4
