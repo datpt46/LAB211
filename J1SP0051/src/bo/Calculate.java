@@ -1,97 +1,69 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bo;
 
-import entity.BMI;
 import java.util.Scanner;
 import validation.Validate;
 
 /**
  *
- * @author Administrator
+ * @author datpthe141311
  */
-public class Calculate implements CaculateBo {
+public class Calculate {
 
-    private static int memory = 0;
-    private static final Scanner IN = new Scanner(System.in);
+    static double memory = 0;
     static final validation.Validate CHECK = new Validate();
     
-
-    @Override
     public void caculate() {
         System.out.println("----Normal Calculator----");
-        int number;
+        memory = CHECK.getDouble("enter number: ", Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+        double secondNumber;
 
-        System.out.println("enter number: ");
-        number = Integer.parseInt(IN.nextLine());
-
-        memory += number;
-
-        boolean flag = true;
-
-        do {
-
-            System.out.println("enter operator value");
+        while (true) {
+            System.out.println("enter operator: +, - ,*, /, ^, =");
             String op = CHECK.getperator();
 
-            switch (op) {
-                case "+":
-                    System.out.println("enter number: ");
-                    number = Integer.parseInt(IN.nextLine());
-                    memory += number;
-                    System.out.println("memory = " + memory);
-                    break;
-                case "-":
-                    System.out.println("enter number: ");
-                    number = Integer.parseInt(IN.nextLine());
-                    memory -= number;
-                    System.out.println("memory = " + memory);
-                    break;
-                case "*":
-                    System.out.println("enter number: ");
-                    number = Integer.parseInt(IN.nextLine());
-                    memory *= number;
-                    System.out.println("memory = " + memory);
-                    break;
-                case "/":
-                    try {
-                        System.out.println("enter number: ");
-                        number = Integer.parseInt(IN.nextLine());
-                        memory /= number;
-                        System.out.println("memory = " + memory);
-                        break;
-                    } catch (ArithmeticException ae) {
-                        System.out.println(ae.getMessage());
-                        break;
-                    }
-                case "^":
-                    System.out.println("enter number: ");
-                    number = Integer.parseInt(IN.nextLine());
-                    memory = (int) Math.pow(memory, number);
-                    System.out.println("memory = " + memory);
-                    break;
-                case "=":
-                    System.out.println("Result = " + memory);
-                    flag = false;
-                    break;
+            if (op.equals("=")) {
+                System.out.println("Result: " + memory);
+                return;
             }
-        } while (flag);
+
+            secondNumber = getSecondNumber(op);
+
+            if (op.equals("+")) {
+                memory += secondNumber;
+                System.out.println("Result: " + memory);
+            } else if (op.equals("-")) {
+                memory -= secondNumber;
+                System.out.println("Result: " + memory);
+            } else if (op.equals("*")) {
+                memory *= secondNumber;
+                System.out.println("Result: " + memory);
+            } else if (op.equals("/")) {
+                memory /= secondNumber;
+                System.out.println("Result: " + memory);
+            } else if (op.equals("^")){
+                memory = Math.pow(memory, secondNumber);
+                System.out.println("Result: " + memory);
+            }
+
+        }
 
     }
     
+    public double getSecondNumber(String op) {
+        double secondNumber = 0;
+        do {
+            secondNumber = CHECK.getDouble("enter number: ", Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+            if (secondNumber == 0 && op.equals("/")) {
+                System.out.println("cannot divide by 0");
+            }
+        } while (secondNumber == 0 && op.equals("/"));
 
-    @Override
+        return secondNumber;
+    }
+    
     public void caculateBMI() {
-//        System.out.println("Enter weight(kg): ");
-//        double weight = IN.nextDouble();
-//        System.out.println("Enter height(cm): ");
-//        double height = IN.nextDouble();
-        
-        double weight = CHECK.getDouble("enter weight: ", 0, Double.MAX_VALUE);
-        double height = CHECK.getDouble("enter height: ", 0, Double.MAX_VALUE);
+        double weight = CHECK.getDouble("enter weight: ", 0, Double.POSITIVE_INFINITY);
+        double height = CHECK.getDouble("enter height: ", 0, Double.POSITIVE_INFINITY);
 
         height /= 100;
 
@@ -108,31 +80,6 @@ public class Calculate implements CaculateBo {
         } else {
             System.out.println("VERY FAT");
         }
-
     }
-//    enum Operator {
-//        ADD("+"),
-//        SUB("-"),
-//        MUL("*"),
-//        DIV("/"),
-//        EXP("^"),
-//        EQUAL("=");
-//
-//        String op;
-//
-//        private Operator(String op) {
-//            this.op = op;
-//        }
-//
-//        public String getOp() {
-//            return op;
-//        }
-//
-//        public void setOp(String op) {
-//            this.op = op;
-//        }
-//
-//    }
-    
 
 }
