@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package validation;
 
 import entity.Worker;
@@ -14,106 +9,16 @@ import java.util.Scanner;
 
 /**
  *
- * @author Administrator
+ * @author datpthe141311
  */
 public class Validate {
-
-    private static final String REGEX_INT = "-?\\d+";
-    private static final String REGEX_DECIMAL = "-?\\d+\\.\\d+";
-    private static final String REGEX_DOUBLE = REGEX_INT + "|" + REGEX_DECIMAL;
-    private static final Scanner IN = new Scanner(System.in);
-
-    public int getInt(String message, int min, int max) {
-        Scanner scanner = new Scanner(System.in);
-        boolean flag = true;
-        int number = 0;
-
-        while (flag) {
-            System.out.println(message);
-            String strInput = scanner.nextLine().trim();
-
-            if (strInput.isEmpty()) {
-                System.out.println("You cannot enter an empty value!");
-            } else {
-                if (strInput.matches(REGEX_INT)) {
-                    number = Integer.valueOf(strInput);
-                    if (number >= min && number <= max) {
-                        flag = false;
-                    } else {
-                        System.out.println("Number out of range.");
-                    }
-
-                } else {
-                    System.out.println("Number invalid!");
-                }
-            }
-        }
-        return number;
-    }
-
-    public float getFloat(String message, float min, float max) {
-        Scanner scanner = new Scanner(System.in);
-        boolean flag = true;
-        float number = 0;
-
-        while (flag) {
-            System.out.println(message);
-            String strInput = scanner.nextLine().trim();
-
-            if (strInput.isEmpty()) {
-                System.out.println("You cannot enter an empty value!");
-            } else {
-                if (strInput.matches(REGEX_DOUBLE)) {
-                    number = Float.valueOf(strInput);
-                    if (number >= min && number <= max) {
-                        flag = false;
-                    } else {
-                        System.out.println("Number out of range.");
-                    }
-
-                } else {
-                    System.out.println("Number invalid!");
-                }
-            }
-
-        }
-        return number;
-    }
-
-    public double getDouble(String message, double min, double max) {
-        Scanner scanner = new Scanner(System.in);
-        boolean flag = true;
-        double number = 0;
-
-        while (flag) {
-            System.out.println(message);
-            String strInput = scanner.nextLine().trim();
-
-            if (strInput.isEmpty()) {
-                System.out.println("You cannot enter an empty value!");
-            } else {
-                if (strInput.matches(REGEX_DOUBLE)) {
-                    number = Double.valueOf(strInput);
-                    if (number >= min && number <= max) {
-                        flag = false;
-                    } else {
-                        System.out.println("Number out of range.");
-                    }
-
-                } else {
-                    System.out.println("Number invalid!");
-                }
-            }
-
-        }
-        return number;
-    }
-
+    
     //check user input string
     public String getString() {
+        Scanner in = new Scanner(System.in);
         //loop until user input correct
         while (true) {
-            String result = IN.nextLine().trim();
+            String result = in.nextLine().trim();
             if (result.isEmpty()) {
                 System.err.println("Not empty");
                 System.out.print("Enter again: ");
@@ -121,6 +26,48 @@ public class Validate {
                 return result;
             }
         }
+    }
+    
+    public int getInt(String message, int min, int max) {
+        boolean flag = true;
+        int number = 0;
+
+        while (flag) {
+            System.out.println(message);
+            try {
+                number = Integer.parseInt(getString());
+                if (number >= min && number <= max) {
+                    flag = false;
+                } else {
+                    System.out.println("number out of range!");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Number invalid!");
+            }
+        }
+
+        return number;
+    }
+    
+    public double getDouble(String message, double min, double max) {
+        boolean flag = true;
+        double number = 0;
+
+        while (flag) {
+            System.out.println(message);
+            try {
+                number = Double.parseDouble(getString());
+                if (number >= min && number <= max) {
+                    flag = false;
+                } else {
+                    System.out.println("number out of range!");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Number invalid!");
+            }
+        }
+
+        return number;
     }
 
     public String getWorker(ArrayList<Worker> lw) {
