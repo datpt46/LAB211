@@ -12,13 +12,9 @@ import entity.Intern;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
- *
- * @author Administrator
- */
 public class Manage implements ManageInterface {
 
-    validation.Validate CHECK = new validation.Validate();
+    validation.Validate check = new validation.Validate();
 
     public void menu() {
         System.out.println("======Candidate management system======");
@@ -33,18 +29,18 @@ public class Manage implements ManageInterface {
     public void add(ArrayList<Candidate> candidates, int type) {
 
         while (true) {
-            String id = CHECK.getId(candidates);
+            String id = check.getId(candidates);
             System.out.println("enter your first name: ");
-            String fName = CHECK.getString();
+            String fName = check.getString();
             System.out.println("enter your last name: ");
-            String lName = CHECK.getString();
-            int birthDate = CHECK.getInt("enter your birthDate: ", 1900, Calendar.getInstance().get(Calendar.YEAR));
+            String lName = check.getString();
+            int birthDate = check.getInt("enter your birthDate: ", 1900, Calendar.getInstance().get(Calendar.YEAR));
             System.out.println("enter your address: ");
-            String address = CHECK.getString();
+            String address = check.getString();
             System.out.println("enter phone number: ");
-            String phone = CHECK.getphoneNumber(candidates);
+            String phone = check.getphoneNumber(candidates);
             System.out.println("enter email: ");
-            String email = CHECK.getEmail(candidates);
+            String email = check.getEmail(candidates);
 
             Candidate cd = new Candidate(id, fName, lName, birthDate, address, phone, email, type);
 
@@ -61,19 +57,17 @@ public class Manage implements ManageInterface {
             }
 
             System.out.println("Do you want to continue? (Y/N)");
-            if (!CHECK.chooseYN()) {
+            if (!check.chooseYN()) {
                 return;
             }
-
         }
-
     }
 
     @Override
     public void createExperience(ArrayList<Candidate> candidates, Candidate cd) {
-        int yearExperience = CHECK.getYearOfExperience(cd.getBirthDate());
+        int yearExperience = check.getYearOfExperience(cd.getBirthDate());
         System.out.println("enter professional skill: ");
-        String proSkill = CHECK.getString();
+        String proSkill = check.getString();
 
         candidates.add(new Experience(yearExperience, proSkill,
                 cd.getId(), cd.getFirstName(), cd.getLastName(),
@@ -85,11 +79,11 @@ public class Manage implements ManageInterface {
     @Override
     public void createFresher(ArrayList<Candidate> candidates, Candidate cd) {
         System.out.println("enter graduation date: ");
-        String graDate = CHECK.getString();
+        String graDate = check.getString();
         System.out.println("enter graduation rank: ");
-        String graRank = CHECK.getRankOfGraduation();
+        String graRank = check.getRankOfGraduation();
         System.out.println("enter university: ");
-        String education = CHECK.getString();
+        String education = check.getString();
 
         candidates.add(new Fresher(graDate, graRank, education,
                 cd.getId(), cd.getFirstName(), cd.getLastName(),
@@ -101,10 +95,10 @@ public class Manage implements ManageInterface {
     @Override
     public void createIntern(ArrayList<Candidate> candidates, Candidate cd) {
         System.out.println("enter major: ");
-        String major = CHECK.getString();
-        int semester = CHECK.getInt("enter semester: ", 1, 9);
+        String major = check.getString();
+        int semester = check.getInt("enter semester: ", 1, 9);
         System.out.println("enter university: ");
-        String university = CHECK.getString();
+        String university = check.getString();
 
         candidates.add(new Intern(major, semester, university,
                 cd.getId(), cd.getFirstName(), cd.getLastName(),
@@ -115,22 +109,23 @@ public class Manage implements ManageInterface {
 
     @Override
     public void search(ArrayList<Candidate> candidates) {
+        int count = 0;
         displayListCandidate(candidates);
 
         System.out.println("enter first name or last name of candidate: ");
-        String nameSearch = CHECK.getString();
-        int cdType = CHECK.getInt("enter candidate type: ", 0, 2);
+        String nameSearch = check.getString();
+        int cdType = check.getInt("enter candidate type: ", 0, 2);
 
         for (Candidate cd : candidates) {
             if (cdType == cd.getType()
                     && (cd.getFirstName().contains(nameSearch)
                     || cd.getLastName().contains(nameSearch))) {
+                count++;
                 System.out.println(cd.toString());
-                return;
             }
         }
 
-        System.out.println("candidate not found!");
+        System.out.println((count >= 1) ? "Candidate found!" : "Candidate not found!");
 
     }
 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package validation;
 
 import entity.Candidate;
@@ -10,18 +5,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
 
-/**
- *
- * @author Administrator
- */
 public class Validate {
 
-    static final Scanner IN = new Scanner(System.in);
-    static final ValidateBoolean VB = new ValidateBoolean();
+    static Scanner in = new Scanner(System.in);
 
     public String getString() {
         while (true) {
-            String res = IN.nextLine().trim();
+            String res = in.nextLine().trim();
 
             if (!res.isEmpty()) {
                 return res;
@@ -72,7 +62,7 @@ public class Validate {
         while (true) {
             System.out.println("enter id: ");
             String id = getString();
-            if (!VB.isCandidateId(candidates, id)) {
+            if (!isCandidateId(candidates, id)) {
                 return id;
             } else {
                 System.out.println("id existed!");
@@ -81,41 +71,29 @@ public class Validate {
     }
 
     public String getphoneNumber(ArrayList<Candidate> candidates) {
-
         while (true) {
             String phoneNumber = getString();
 
-            if (!VB.isCandidatePhone(candidates, phoneNumber)) {
-                if (phoneNumber.matches("^\\d{10, 11}$")) {
-                    return phoneNumber;
-                } else {
-                    System.out.println("phone number minimum 10 numbers");
-                }
+            if (phoneNumber.matches("^\\d{10,11}$")) {
+                return phoneNumber;
             } else {
-                System.out.println("phone number existed!");
+                System.out.println("phone number minimum 10 numbers");
             }
-
         }
     }
 
     public String getEmail(ArrayList<Candidate> candidates) {
-
         while (true) {
             String email = getString();
-            if (!VB.isCandidateEmail(candidates, email)) {
-                if (email.matches("^[a-zA-Z]+[a-zA-Z0-9]*@[a-zA-Z]+(\\.[A-Za-z0-9]+){1,3}$")) {
-                    return email;
-                } else {
-                    System.out.println("format <account name>@<domain>.");
-                }
+            if (email.matches("^[a-zA-Z]+[a-zA-Z0-9]*@[a-zA-Z]+(\\.[A-Za-z0-9]+){1,3}$")) {
+                return email;
             } else {
-                System.out.println("email existed!");
+                System.out.println("format <account name>@<domain>.");
             }
-
         }
     }
 
-    public int getYearOfExperience(int birthDate) {
+public int getYearOfExperience(int birthDate) {
         int yearCurrent = Calendar.getInstance().get(Calendar.YEAR);
         int age = yearCurrent - birthDate;
 
@@ -144,5 +122,14 @@ public class Validate {
             }
         }
 
+    }
+    
+    public boolean isCandidateId(ArrayList<Candidate> candidates, String id) {
+        for(Candidate cd : candidates) {
+            if(id.equalsIgnoreCase(cd.getId())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
