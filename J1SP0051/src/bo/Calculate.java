@@ -10,16 +10,16 @@ import validation.Validate;
 public class Calculate {
 
     static double memory = 0;
-    static final validation.Validate CHECK = new Validate();
+    static validation.Validate check = new Validate();
     
     public void caculate() {
         System.out.println("----Normal Calculator----");
-        memory = CHECK.getDouble("enter number: ", Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+        memory = check.getDouble("enter number: ", Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
         double secondNumber;
 
         while (true) {
             System.out.println("enter operator: +, - ,*, /, ^, =");
-            String op = CHECK.getperator();
+            String op = check.getperator();
 
             if (op.equals("=")) {
                 System.out.println("Result: " + memory);
@@ -52,7 +52,7 @@ public class Calculate {
     public double getSecondNumber(String op) {
         double secondNumber = 0;
         do {
-            secondNumber = CHECK.getDouble("enter number: ", Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+            secondNumber = check.getDouble("enter number: ", Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
             if (secondNumber == 0 && op.equals("/")) {
                 System.out.println("cannot divide by 0");
             }
@@ -62,8 +62,8 @@ public class Calculate {
     }
     
     public void caculateBMI() {
-        double weight = CHECK.getDouble("enter weight: ", 0, Double.POSITIVE_INFINITY);
-        double height = CHECK.getDouble("enter height: ", 0, Double.POSITIVE_INFINITY);
+        double weight = check.getDouble("enter weight: ", 0, Double.POSITIVE_INFINITY);
+        double height = check.getDouble("enter height: ", 0, Double.POSITIVE_INFINITY);
 
         height /= 100;
 
