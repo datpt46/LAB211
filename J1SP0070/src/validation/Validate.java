@@ -1,42 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package validation;
 
 import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.Scanner;
 
-/**
- *
- * @author Administrator
- */
+//viet thuong la ngon ngu, viet hoa la country
+
 public class Validate {
 
-    static final Scanner IN = new Scanner(System.in);
-    static final generate.Generate GC = new generate.Generate();
-    static final String ACCOUNT_REGEX = "^\\d{10}$";
-    static final String PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{8,31}$";
-
-    public void getWordLanguage(Locale locale, String key) {
-        ResourceBundle labels = ResourceBundle.getBundle("messages", locale);
-        System.out.println(labels.getString(key));
-    }
+    static process.TPBankProcess tpp = new process.TPBankProcess();
 
     public String getString(Locale locale) {
-
+        Scanner in = new Scanner(System.in);
         while (true) {
-            String result = IN.nextLine().trim();
+            String result = in.nextLine().trim();
             if (result.isEmpty()) {
-                getWordLanguage(locale, "checkEmptyString");
+                tpp.getWordLanguage(locale, "checkEmptyString");
             } else {
                 return result;
             }
-
         }
-
     }
 
     public int getInt(Locale locale, int min, int max) {
@@ -50,11 +33,11 @@ public class Validate {
                 if (number >= min && number <= max) {
                     flag = false;
                 } else {
-                    getWordLanguage(locale, "checkNumberRange");
+                    tpp.getWordLanguage(locale, "checkNumberRange");
                 }
 
             } catch (NumberFormatException e) {
-                getWordLanguage(locale, "checkEnterInputAgain");
+                tpp.getWordLanguage(locale, "checkEnterInputAgain");
             }
         }
 
@@ -66,14 +49,36 @@ public class Validate {
         boolean flag = true;
 
         while (flag) {
+            tpp.getWordLanguage(locale, "enterAccount");
             account = getString(locale);
-            if (account.matches(ACCOUNT_REGEX)) {
+            if (account.matches("\\d{10}")) {
                 flag = false;
             } else {
-                getWordLanguage(locale, "errorAccount");
+                tpp.getWordLanguage(locale, "errorAccount");
             }
         }
         return account;
+    }
+
+    private boolean isPassword(String pass) {
+        int passLength = pass.length();
+        boolean isPass = true;
+
+        if (passLength >= 8 && passLength <= 31) {
+            for (int i = 0; i < passLength; i++) {
+                if (!Character.isLetter(pass.charAt(i)) && !Character.isDigit(pass.charAt(i))) {
+                    isPass = false;
+                    break;
+                }
+            }
+
+            if (pass.matches("\\d+") || pass.matches("[a-zA-Z]+")) {
+                isPass = false;
+            }
+        } else {
+            isPass = false;
+        }
+        return isPass;
     }
 
     public String getPassword(Locale locale) {
@@ -81,18 +86,15 @@ public class Validate {
         boolean flag = true;
 
         while (flag) {
+            tpp.getWordLanguage(locale, "enterPassword");
             password = getString(locale);
-            if (password.matches(PASSWORD_REGEX)) {
+            if (isPassword(password)) {
                 flag = false;
             } else {
-                getWordLanguage(locale, "errorPassword");
+                tpp.getWordLanguage(locale, "errorPassword");
             }
         }
         return password;
-    }
-
-    public boolean isCaptcha(String captchaGenerated, String captchaInput) {
-        return captchaGenerated.equals(captchaInput);
     }
 
     public String getCaptcha(Locale locale) {
@@ -101,17 +103,17 @@ public class Validate {
         String captchaGenerated = "";
 
         while (flag) {
-            captchaGenerated = GC.generateCaptcha();
+            captchaGenerated = tpp.generateCaptcha();
             System.out.println(captchaGenerated);
 
-            getWordLanguage(locale, "enterCaptcha");
+            tpp.getWordLanguage(locale, "enterCaptcha");
             captchaInput = getString(locale);
 
-            if (isCaptcha(captchaGenerated, captchaInput)) {
-                getWordLanguage(locale, "loginSuccess");
+            if (captchaGenerated.equals(captchaInput)) {
+                tpp.getWordLanguage(locale, "loginSuccess");
                 flag = false;
             } else {
-                getWordLanguage(locale, "errorCaptcha");
+                tpp.getWordLanguage(locale, "errorCaptcha");
             }
         }
 

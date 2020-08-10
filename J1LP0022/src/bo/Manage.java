@@ -12,7 +12,7 @@ import entity.Intern;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class Manage implements ManageInterface {
+public class Manage {
 
     validation.Validate check = new validation.Validate();
 
@@ -25,7 +25,6 @@ public class Manage implements ManageInterface {
         System.out.println("5. Exit");
     }
 
-    @Override
     public void add(ArrayList<Candidate> candidates, int type) {
 
         while (true) {
@@ -63,7 +62,6 @@ public class Manage implements ManageInterface {
         }
     }
 
-    @Override
     public void createExperience(ArrayList<Candidate> candidates, Candidate cd) {
         int yearExperience = check.getYearOfExperience(cd.getBirthDate());
         System.out.println("enter professional skill: ");
@@ -76,7 +74,6 @@ public class Manage implements ManageInterface {
         System.out.println("experience created!");
     }
 
-    @Override
     public void createFresher(ArrayList<Candidate> candidates, Candidate cd) {
         System.out.println("enter graduation date: ");
         String graDate = check.getString();
@@ -92,7 +89,6 @@ public class Manage implements ManageInterface {
         System.out.println("fresher created!");
     }
 
-    @Override
     public void createIntern(ArrayList<Candidate> candidates, Candidate cd) {
         System.out.println("enter major: ");
         String major = check.getString();
@@ -107,12 +103,10 @@ public class Manage implements ManageInterface {
         System.out.println("Intern created!");
     }
 
-    @Override
     public void search(ArrayList<Candidate> candidates) {
         int count = 0;
-        displayListCandidate(candidates);
 
-        System.out.println("enter first name or last name of candidate: ");
+        displayListCandidate(candidates);
         String nameSearch = check.getString();
         int cdType = check.getInt("enter candidate type: ", 0, 2);
 
@@ -128,9 +122,8 @@ public class Manage implements ManageInterface {
         System.out.println((count >= 1) ? "Candidate found!" : "Candidate not found!");
 
     }
-
-    @Override
-    public void displayListCandidate(ArrayList<Candidate> candidates) {
+    
+    public void displayListCandidate(ArrayList<Candidate> candidates){
         System.out.println("=========Experience========");
 
         for (Candidate cd : candidates) {
@@ -138,16 +131,26 @@ public class Manage implements ManageInterface {
                 System.out.println(cd.getFirstName() + " " + cd.getLastName());
             }
         }
+    }
+    
+    public void displayListExperience(ArrayList<Candidate> candidates) {
+        System.out.println("=========Experience========");
 
-        System.out.println("\n==========Fresher=========");
+        for (Candidate cd : candidates) {
+            if (cd instanceof Experience) {
+                System.out.println(cd.getFirstName() + " " + cd.getLastName());
+            }
+        }
+        
+         System.out.println("\n==========Fresher=========");
 
         for (Candidate cd : candidates) {
             if (cd instanceof Fresher) {
                 System.out.println(cd.getFirstName() + " " + cd.getLastName());
             }
         }
-
-        System.out.println("\n==========Intern==========");
+        
+         System.out.println("\n==========Intern==========");
 
         for (Candidate cd : candidates) {
             if (cd instanceof Intern) {
@@ -155,4 +158,5 @@ public class Manage implements ManageInterface {
             }
         }
     }
+    
 }

@@ -12,36 +12,39 @@ import java.util.Scanner;
  * @author Administrator
  */
 public class Validate {
-
-    private static final String REGEX_INT = "-?\\d+";
-    private static final String REGEX_DECIMAL = "-?\\d+\\.\\d+";
-    private static final String REGEX_DOUBLE = REGEX_INT + "|" + REGEX_DECIMAL;
-    private static final Scanner SC = new Scanner(System.in);
-
+    static Scanner in = new Scanner(System.in);
+    //check user input string
+    public String getString() {
+        //loop until user input correct
+        while (true) {
+            String result = in.nextLine().trim();
+            if (result.isEmpty()) {
+                System.err.println("Not empty");
+                System.out.print("Enter again: ");
+            } else {
+                return result;
+            }
+        }
+    }
+    
     public int getInt(String message, int min, int max) {
         boolean flag = true;
         int number = 0;
 
         while (flag) {
             System.out.println(message);
-            String strInput = SC.nextLine().trim();
-
-            if (strInput.isEmpty()) {
-                System.out.println("You cannot enter an empty value!");
-            } else {
-                if (strInput.matches(REGEX_INT)) {
-                    number = Integer.valueOf(strInput);
-                    if (number >= min && number <= max) {
-                        flag = false;
-                    } else {
-                        System.out.println("Number out of range.");
-                    }
-
+            try {
+                number = Integer.parseInt(getString());
+                if (number >= min && number <= max) {
+                    flag = false;
                 } else {
-                    System.out.println("Number invalid!");
+                    System.out.println("number out of range!");
                 }
+            } catch (NumberFormatException e) {
+                System.out.println("Number invalid!");
             }
         }
+
         return number;
     }
     
@@ -51,42 +54,25 @@ public class Validate {
 
         while (flag) {
             System.out.println(message);
-            String strInput = SC.nextLine().trim();
-
-            if (strInput.isEmpty()) {
-                System.out.println("You cannot enter an empty value!");
-            } else {
-                if (strInput.matches(REGEX_DOUBLE)) {
-                    number = Double.valueOf(strInput);
-                    if (number >= min && number <= max) {
-                        flag = false;
-                    } else {
-                        System.out.println("Number out of range.");
-                    }
-
+            try {
+                number = Double.parseDouble(getString());
+                if (number >= min && number <= max) {
+                    flag = false;
                 } else {
-                    System.out.println("Number invalid!");
+                    System.out.println("number out of range!");
                 }
+            } catch (NumberFormatException e) {
+                System.out.println("Number invalid!");
             }
         }
-        return number;
-    }
 
-    public String getString() {
-        while (true) {
-            String result = SC.nextLine().trim();
-            if (!result.isEmpty()) {
-                return result;
-            } else {
-                System.out.println("cannot empty, enter again: ");
-            }
-        }
+        return number;
     }
 
     public String getperator() {
 
         while (true) {
-            String operator = SC.nextLine();
+            String operator = in.nextLine();
             if (operator.isEmpty()) {
                 System.out.println("cannot empty");
             } else {

@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entity;
 
 /**
  *
- * @author Administrator
+ * @author datpthe141311
  */
 public class Worker {
-//    private final AtomicInteger COUNT_ID = new AtomicInteger(0);
     private String id;
     private String name;
     private int age;
@@ -24,8 +18,6 @@ public class Worker {
         this.salary = salary;
         this.workLocation = workLocation;
     }
-    
-    
 
     public String getId() {
         return id;

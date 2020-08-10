@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bo;
+package main;
 
 /**
  *
  * @author Administrator
  */
-public interface CaculateBo {
-    void caculate();
-    void caculateBMI();
-    
+public class Main {
+    public static void main(String[] args) {
+        new Model().runTPBank();
+    }
 }

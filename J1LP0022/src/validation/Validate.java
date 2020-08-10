@@ -58,7 +58,6 @@ public class Validate {
     }
 
     public String getId(ArrayList<Candidate> candidates) {
-
         while (true) {
             System.out.println("enter id: ");
             String id = getString();
@@ -80,6 +79,7 @@ public class Validate {
                 System.out.println("phone number minimum 10 numbers");
             }
         }
+
     }
 
     public String getEmail(ArrayList<Candidate> candidates) {
@@ -93,7 +93,7 @@ public class Validate {
         }
     }
 
-public int getYearOfExperience(int birthDate) {
+    public int getYearOfExperience(int birthDate) {
         int yearCurrent = Calendar.getInstance().get(Calendar.YEAR);
         int age = yearCurrent - birthDate;
 
@@ -123,10 +123,10 @@ public int getYearOfExperience(int birthDate) {
         }
 
     }
-    
+
     public boolean isCandidateId(ArrayList<Candidate> candidates, String id) {
-        for(Candidate cd : candidates) {
-            if(id.equalsIgnoreCase(cd.getId())) {
+        for (Candidate cd : candidates) {
+            if (id.equalsIgnoreCase(cd.getId())) {
                 return true;
             }
         }
