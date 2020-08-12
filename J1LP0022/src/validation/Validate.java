@@ -61,7 +61,7 @@ public class Validate {
         while (true) {
             System.out.println("enter id: ");
             String id = getString();
-            if (!isCandidateId(candidates, id)) {
+            if (isCandidateId(candidates, id) == -1) {
                 return id;
             } else {
                 System.out.println("id existed!");
@@ -124,12 +124,12 @@ public class Validate {
 
     }
 
-    public boolean isCandidateId(ArrayList<Candidate> candidates, String id) {
-        for (Candidate cd : candidates) {
-            if (id.equalsIgnoreCase(cd.getId())) {
-                return true;
+    public int isCandidateId(ArrayList<Candidate> candidates, String id) {
+        for (int i = 0; i < candidates.size(); i++) {
+            if (id.equalsIgnoreCase(candidates.get(i).getId())) {
+                return i;
             }
         }
-        return false;
+        return -1;
     }
 }

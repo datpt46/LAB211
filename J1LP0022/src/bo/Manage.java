@@ -28,33 +28,39 @@ public class Manage {
     public void add(ArrayList<Candidate> candidates, int type) {
 
         while (true) {
-            String id = check.getId(candidates);
-            System.out.println("enter your first name: ");
-            String fName = check.getString();
-            System.out.println("enter your last name: ");
-            String lName = check.getString();
-            int birthDate = check.getInt("enter your birthDate: ", 1900, Calendar.getInstance().get(Calendar.YEAR));
-            System.out.println("enter your address: ");
-            String address = check.getString();
-            System.out.println("enter phone number: ");
-            String phone = check.getphoneNumber(candidates);
-            System.out.println("enter email: ");
-            String email = check.getEmail(candidates);
+//            String id = check.getId(candidates);
+            System.out.println("enter id: ");
+            String id = check.getString();
+            if (check.isCandidateId(candidates, id) == -1) {
+                System.out.println("enter your first name: ");
+                String fName = check.getString();
+                System.out.println("enter your last name: ");
+                String lName = check.getString();
+                int birthDate = check.getInt("enter your birthDate: ", 1900, Calendar.getInstance().get(Calendar.YEAR));
+                System.out.println("enter your address: ");
+                String address = check.getString();
+                System.out.println("enter phone number: ");
+                String phone = check.getphoneNumber(candidates);
+                System.out.println("enter email: ");
+                String email = check.getEmail(candidates);
 
-            Candidate cd = new Candidate(id, fName, lName, birthDate, address, phone, email, type);
+                Candidate cd = new Candidate(id, fName, lName, birthDate, address, phone, email, type);
 
-            switch (type) {
-                case 0:
-                    createExperience(candidates, cd);
-                    break;
-                case 1:
-                    createFresher(candidates, cd);
-                    break;
-                case 2:
-                    createIntern(candidates, cd);
-                    break;
+                switch (type) {
+                    case 0:
+                        createExperience(candidates, cd);
+                        break;
+                    case 1:
+                        createFresher(candidates, cd);
+                        break;
+                    case 2:
+                        createIntern(candidates, cd);
+                        break;
+                }
+
+            } else {
+                System.out.println("id existed!");
             }
-
             System.out.println("Do you want to continue? (Y/N)");
             if (!check.chooseYN()) {
                 return;
@@ -103,10 +109,12 @@ public class Manage {
         System.out.println("Intern created!");
     }
 
+    // add Experience E1, add Fresher F1, add Intern I1. => ArrayList<Candidate>
     public void search(ArrayList<Candidate> candidates) {
         int count = 0;
 
         displayListCandidate(candidates);
+        System.out.println("\nenter name to search: ");
         String nameSearch = check.getString();
         int cdType = check.getInt("enter candidate type: ", 0, 2);
 
@@ -115,15 +123,20 @@ public class Manage {
                     && (cd.getFirstName().contains(nameSearch)
                     || cd.getLastName().contains(nameSearch))) {
                 count++;
+                if (count == 1) {
+                    System.out.println("candidate found!");
+                }
                 System.out.println(cd.toString());
             }
         }
+        if (count == 0) {
+            System.out.println("candidate not found!");
+        }
 
-        System.out.println((count >= 1) ? "Candidate found!" : "Candidate not found!");
-
+//        System.out.println((count >= 1) ? "Candidate found!" : "Candidate not found!");
     }
-    
-    public void displayListCandidate(ArrayList<Candidate> candidates){
+
+    public void displayListCandidate(ArrayList<Candidate> candidates) {
         System.out.println("=========Experience========");
 
         for (Candidate cd : candidates) {
@@ -131,26 +144,16 @@ public class Manage {
                 System.out.println(cd.getFirstName() + " " + cd.getLastName());
             }
         }
-    }
-    
-    public void displayListExperience(ArrayList<Candidate> candidates) {
-        System.out.println("=========Experience========");
 
-        for (Candidate cd : candidates) {
-            if (cd instanceof Experience) {
-                System.out.println(cd.getFirstName() + " " + cd.getLastName());
-            }
-        }
-        
-         System.out.println("\n==========Fresher=========");
+        System.out.println("\n==========Fresher=========");
 
         for (Candidate cd : candidates) {
             if (cd instanceof Fresher) {
                 System.out.println(cd.getFirstName() + " " + cd.getLastName());
             }
         }
-        
-         System.out.println("\n==========Intern==========");
+
+        System.out.println("\n==========Intern==========");
 
         for (Candidate cd : candidates) {
             if (cd instanceof Intern) {
@@ -158,5 +161,5 @@ public class Manage {
             }
         }
     }
-    
+
 }
