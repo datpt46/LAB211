@@ -1,7 +1,8 @@
 # LAB211
 
-### J1LP0022: Program to manage Candidate of company
+## Lab Java mình pass thầy HaiLT 770/750
 
+### J1LP0022: Program to manage Candidate of company
 
 ### J1SP0050: Solving Equation
 
